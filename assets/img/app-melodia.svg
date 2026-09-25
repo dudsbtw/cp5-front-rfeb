@@ -1,49 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 600" font-family="Arial, Helvetica, sans-serif">
-  <defs>
-    <linearGradient id="capa" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e879f9"/>
-      <stop offset="1" stop-color="#7c3aed"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Corpo do celular -->
-  <rect x="5" y="5" width="290" height="590" rx="40" fill="#1e293b" stroke="#334155" stroke-width="4"/>
-  <rect x="18" y="18" width="264" height="564" rx="30" fill="#0f172a"/>
-  <rect x="115" y="28" width="70" height="16" rx="8" fill="#1e293b"/>
-
-  <!-- Topo da tela -->
-  <text x="40" y="85" fill="#94a3b8" font-size="13">Tocando agora</text>
-  <circle cx="255" cy="80" r="3" fill="#94a3b8"/>
-  <circle cx="245" cy="80" r="3" fill="#94a3b8"/>
-  <circle cx="235" cy="80" r="3" fill="#94a3b8"/>
-
-  <!-- Capa do álbum -->
-  <rect x="40" y="110" width="220" height="220" rx="20" fill="url(#capa)"/>
-  <circle cx="150" cy="220" r="60" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
-  <circle cx="150" cy="220" r="35" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
-  <circle cx="150" cy="220" r="10" fill="#ffffff" fill-opacity="0.8"/>
-
-  <!-- Nome da música -->
-  <text x="40" y="370" fill="#f1f5f9" font-size="20" font-weight="bold">Noite Estrelada</text>
-  <text x="40" y="395" fill="#94a3b8" font-size="14">Banda Aurora</text>
-  <path d="M252 358c-4-6-14-4-14 3 0 7 14 14 14 14s14-7 14-14c0-7-10-9-14-3Z" fill="#e879f9"/>
-
-  <!-- Barra de progresso -->
-  <rect x="40" y="420" width="220" height="5" rx="2.5" fill="#334155"/>
-  <rect x="40" y="420" width="130" height="5" rx="2.5" fill="#e879f9"/>
-  <circle cx="170" cy="422.5" r="7" fill="#f1f5f9"/>
-  <text x="40" y="445" fill="#64748b" font-size="11">2:14</text>
-  <text x="260" y="445" fill="#64748b" font-size="11" text-anchor="end">3:48</text>
-
-  <!-- Controles -->
-  <path d="M85 480 L65 495 L85 510 Z" fill="#cbd5e1"/>
-  <rect x="60" y="480" width="4" height="30" fill="#cbd5e1"/>
-  <circle cx="150" cy="495" r="32" fill="#c026d3"/>
-  <rect x="138" y="481" width="8" height="28" rx="2" fill="#ffffff"/>
-  <rect x="154" y="481" width="8" height="28" rx="2" fill="#ffffff"/>
-  <path d="M215 480 L235 495 L215 510 Z" fill="#cbd5e1"/>
-  <rect x="236" y="480" width="4" height="30" fill="#cbd5e1"/>
-
-  <!-- Barra inferior -->
-  <rect x="110" y="562" width="80" height="5" rx="2.5" fill="#475569"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-labelledby="title">
+  <title id="title">Ondas sonoras abstratas do Melodia</title>
+  <rect width="520" height="520" fill="#ff7047"/>
+  <path d="M-34 76c89 0 91 88 168 88S226 30 300 30s94 112 151 112 76-46 111-46" fill="none" stroke="#17213a" stroke-width="25" stroke-linecap="round"/>
+  <path d="M-27 176c83 0 89 102 166 102s98-149 173-149 91 123 149 123 74-56 105-56" fill="none" stroke="#2947cf" stroke-width="31" stroke-linecap="round"/>
+  <path d="M-40 286c88 0 102 119 174 119s99-159 176-159 94 128 151 128 77-58 105-58" fill="none" stroke="#17213a" stroke-width="25" stroke-linecap="round"/>
+  <path d="M-32 398c84 0 95 102 169 102s98-152 175-152 91 126 151 126 77-53 108-53" fill="none" stroke="#2947cf" stroke-width="31" stroke-linecap="round"/>
+  <circle cx="130" cy="78" r="18" fill="#e8eefc"/>
+  <circle cx="338" cy="285" r="15" fill="#e8eefc"/>
+  <circle cx="468" cy="38" r="9" fill="#e8eefc"/>
+  <circle cx="57" cy="456" r="11" fill="#e8eefc"/>
 </svg>

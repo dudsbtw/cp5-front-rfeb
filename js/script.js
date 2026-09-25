@@ -1,99 +1,159 @@
-// ===== Menu fixo com efeito de transparência =====
-// No topo da página o menu fica transparente.
-// Quando o usuário rola, adicionamos a classe "menu-rolado" (fundo escuro com desfoque).
-const menu = document.getElementById('menu');
+const menuButton = document.getElementById('btn-menu');
+const mobileMenu = document.getElementById('menu-mobile');
+const header = document.getElementById('menu');
 
-function atualizarMenu() {
-  menu.classList.toggle('menu-rolado', window.scrollY > 50);
+function syncHeader() {
+  const solid = window.scrollY > 40 || !mobileMenu.classList.contains('hidden');
+  header.classList.toggle('bg-white', solid);
+  header.classList.toggle('text-ink', solid);
+  header.classList.toggle('border-ink/15', solid);
+  header.classList.toggle('bg-transparent', !solid);
+  header.classList.toggle('text-white', !solid);
+  header.classList.toggle('border-transparent', !solid);
 }
 
-window.addEventListener('scroll', atualizarMenu);
-atualizarMenu();
+window.addEventListener('scroll', syncHeader, { passive: true });
+syncHeader();
 
-// ===== Menu mobile (abrir e fechar) =====
-const btnMenu = document.getElementById('btn-menu');
-const menuMobile = document.getElementById('menu-mobile');
-
-// A mesma função abre e fecha o menu.
-// classList.toggle devolve true se a classe "hidden" foi adicionada (menu fechado).
-function alternarMenu() {
-  const aberto = !menuMobile.classList.toggle('hidden');
-  btnMenu.setAttribute('aria-expanded', aberto);
-  btnMenu.innerHTML = aberto ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-
-  // Com o menu aberto o fundo do cabeçalho precisa ficar escuro
-  menu.classList.toggle('bg-slate-950', aberto);
+function setMenuOpen(open) {
+  mobileMenu.classList.toggle('hidden', !open);
+  mobileMenu.classList.toggle('flex', open);
+  menuButton.classList.toggle('bg-accent', open);
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  syncHeader();
 }
 
-btnMenu.addEventListener('click', alternarMenu);
-
-// Fecha o menu ao clicar em um link
-menuMobile.querySelectorAll('a').forEach(function (link) {
-  link.addEventListener('click', alternarMenu);
+menuButton.addEventListener('click', () => setMenuOpen(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => setMenuOpen(false));
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+    setMenuOpen(false);
+    menuButton.focus();
+  }
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) setMenuOpen(false);
 });
 
-// ===== Botão "Ouvir Agora" (tocar / pausar a música de demonstração) =====
-const btnOuvir = document.getElementById('btn-ouvir');
 const audio = document.getElementById('audio-demo');
-const iconeOuvir = document.getElementById('icone-ouvir');
-const textoOuvir = document.getElementById('texto-ouvir');
-const equalizador = document.getElementById('equalizador');
+const playButton = document.getElementById('btn-ouvir');
+const playText = document.getElementById('texto-ouvir');
+const playIcon = document.querySelector('#icone-ouvir i');
+const equalizer = document.getElementById('equalizador');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const audioStatus = document.getElementById('estado-audio');
+const currentTime = document.getElementById('tempo-atual');
+const totalTime = document.getElementById('tempo-total');
+const progress = document.getElementById('progresso');
 
-function mostrarTocando(tocando) {
-  iconeOuvir.className = tocando ? 'fa-solid fa-pause' : 'fa-solid fa-play';
-  textoOuvir.textContent = tocando ? 'Pausar' : 'Ouvir Agora';
-  equalizador.classList.toggle('hidden', !tocando);
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return '0:00';
+  const whole = Math.floor(seconds);
+  return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, '0')}`;
 }
 
-btnOuvir.addEventListener('click', function () {
-  if (audio.paused) {
-    audio.play();
-  } else {
+function syncProgress() {
+  currentTime.textContent = formatTime(audio.currentTime);
+  totalTime.textContent = formatTime(audio.duration);
+  progress.style.width = audio.duration ? `${(audio.currentTime / audio.duration) * 100}%` : '0%';
+}
+
+function syncPlayback() {
+  const playing = !audio.paused && !audio.ended;
+  playButton.setAttribute('aria-pressed', String(playing));
+  playText.textContent = playing ? 'Pausar música' : 'Ouvir Agora';
+  playIcon.classList.toggle('fa-play', !playing);
+  playIcon.classList.toggle('fa-pause', playing);
+  equalizer.querySelectorAll('span').forEach((bar) => {
+    bar.classList.toggle('animate-soundbar', playing && !reducedMotion.matches);
+  });
+}
+
+reducedMotion.addEventListener('change', syncPlayback);
+
+playButton.addEventListener('click', async () => {
+  if (!audio.paused) {
     audio.pause();
+    audioStatus.textContent = 'Amostra pausada.';
+    return;
+  }
+  try {
+    await audio.play();
+    audioStatus.textContent = 'Reproduzindo amostra.';
+  } catch {
+    audioStatus.textContent = 'Não foi possível reproduzir a amostra. Tente novamente.';
   }
 });
 
-// Quando a música termina, o navegador também dispara o evento "pause"
-audio.addEventListener('play', function () { mostrarTocando(true); });
-audio.addEventListener('pause', function () { mostrarTocando(false); });
+audio.addEventListener('play', syncPlayback);
+audio.addEventListener('pause', syncPlayback);
+audio.addEventListener('ended', () => {
+  syncPlayback();
+  audioStatus.textContent = 'A amostra terminou. Você pode ouvi-la novamente.';
+});
+audio.addEventListener('timeupdate', syncProgress);
+audio.addEventListener('durationchange', syncProgress);
+audio.addEventListener('error', () => {
+  audioStatus.textContent = 'O arquivo de áudio não carregou. Recarregue a página e tente novamente.';
+});
+syncPlayback();
+syncProgress();
 
-// ===== Formulário de contato (validação simples) =====
 const form = document.getElementById('form-contato');
-const mensagem = document.getElementById('mensagem-form');
+const formMessage = document.getElementById('mensagem-form');
+const nameInput = document.getElementById('nome');
+const emailInput = document.getElementById('email');
+const consentInput = document.getElementById('aceite');
 
-function mostrarMensagem(texto, sucesso) {
-  mensagem.textContent = texto;
-  mensagem.classList.remove('hidden', 'text-red-400', 'text-green-400');
-  mensagem.classList.add(sucesso ? 'text-green-400' : 'text-red-400');
+function showFormMessage(message, success, field) {
+  formMessage.textContent = message;
+  formMessage.hidden = false;
+  formMessage.className = `text-sm font-semibold lg:col-span-2 ${success ? 'text-green-800' : 'text-red-700'}`;
+  if (field) {
+    field.setAttribute('aria-invalid', 'true');
+    field.classList.add('ring-2', 'ring-red-700');
+    field.focus();
+  }
 }
 
-form.addEventListener('submit', function (evento) {
-  // Impede a página de recarregar
-  evento.preventDefault();
+[nameInput, emailInput, consentInput].forEach((field) => {
+  const clearError = () => {
+    field.removeAttribute('aria-invalid');
+    field.classList.remove('ring-2', 'ring-red-700');
+  };
+  field.addEventListener('input', clearError);
+  field.addEventListener('change', clearError);
+});
 
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const aceite = document.getElementById('aceite').checked;
-  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  [nameInput, emailInput, consentInput].forEach((field) => {
+    field.removeAttribute('aria-invalid');
+    field.classList.remove('ring-2', 'ring-red-700');
+  });
 
-  if (nome === '') {
-    mostrarMensagem('Por favor, preencha o seu nome.', false);
+  if (!nameInput.value.trim()) {
+    showFormMessage('Digite seu nome para testar o cadastro.', false, nameInput);
+    return;
+  }
+  if (!emailInput.value.trim()) {
+    showFormMessage('Digite seu e-mail para testar o cadastro.', false, emailInput);
+    return;
+  }
+  if (!emailInput.checkValidity()) {
+    showFormMessage('Confira o formato do e-mail, por exemplo, nome@site.com.', false, emailInput);
+    return;
+  }
+  if (!consentInput.checked) {
+    showFormMessage('Marque que leu a política e entendeu que esta é uma demonstração.', false, consentInput);
     return;
   }
 
-  if (!emailValido) {
-    mostrarMensagem('Digite um e-mail válido.', false);
-    return;
-  }
-
-  if (!aceite) {
-    mostrarMensagem('Você precisa aceitar receber nossos e-mails.', false);
-    return;
-  }
-
-  mostrarMensagem('Obrigado, ' + nome + '! Você vai receber nossas novidades em ' + email + '.', true);
+  showFormMessage('Campos validados. Nenhum dado foi enviado ou salvo.', true);
   form.reset();
 });
 
-// ===== Ano atual no rodapé =====
 document.getElementById('ano').textContent = new Date().getFullYear();

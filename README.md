@@ -1,68 +1,55 @@
-# Melodia — Landing Page
+# Melodia — landing page
 
-Landing page do **Melodia**, um app de músicas fictício, desenvolvida para o **Check-Point 05** da disciplina de **Front-end Design** (Engenharia de Software — FIAP, 2º semestre).
+O **Melodia** é um conceito de app para descobrir música, criado para o Check-Point 05 de Front-end Design (Engenharia de Software, FIAP). Esta landing page apresenta a proposta e permite ouvir uma faixa de demonstração.
 
-🔗 **Página publicada:** https://dudsbtw.github.io/cp5-front-rfeb/
+## O que a página mostra
 
-## Sobre a aplicação
+- Um player com áudio local, progresso e estado de reprodução.
+- O hero com o título e a chamada para ação definidos no enunciado.
+- Os quatro benefícios do app, recursos em seções separadas e depoimentos ilustrativos com fotos.
+- Um formulário **demonstrativo** que valida nome, e-mail e leitura da política no navegador. Ele não envia nem armazena dados.
+- Uma página de [Política de Privacidade](privacidade.html) coerente com o funcionamento do protótipo.
+- Um rodapé com contato e redes sociais ilustrativos, identificados como tal.
 
-O Melodia é voltado para amantes de música, jovens e pessoas que buscam novas descobertas musicais. A página apresenta o app com um visual moderno, clean e com cores vibrantes, destacando seus diferenciais:
+Os recursos descritos são parte do conceito do produto; não há um app funcional conectado a esta página.
 
-- Qualidade de som superior
-- Criação de playlists personalizadas
-- Descoberta de novos artistas
-- Interface intuitiva
+## Direção visual
 
-### Seções da página
+A interface usa azul elétrico, laranja e tipografia condensada para lembrar capas e materiais gráficos de música. O player é o foco da primeira tela. As seções seguintes usam linhas, hierarquia tipográfica e uma composição assimétrica em vez de grades de cards idênticos. A página tem layout responsivo, foco visível para teclado e suporte a movimento reduzido.
 
-| Seção | O que tem |
-|---|---|
-| **Menu fixo** | Fica transparente no topo e ganha fundo escuro com desfoque ao rolar a página (JavaScript). No celular vira um menu hambúrguer. |
-| **Hero** | Título "Melodia: Sua Música, Sua Forma", descrição, botão **Ouvir Agora** (toca uma música de demonstração) e imagem do app. |
-| **Apresentação** | Os 4 benefícios principais com ícones do Font Awesome. |
-| **Funcionalidades** | 6 cards com as funcionalidades do app. |
-| **Depoimentos** | 3 depoimentos com citação e foto de perfil. |
-| **Formulário de contato** | Coleta nome e e-mail para campanhas de marketing, com validação em JavaScript. |
-| **Rodapé** | Contato, redes sociais e link para a Política de Privacidade. |
+## Tecnologias
 
-## Tecnologias usadas
+- HTML5 semântico
+- Tailwind CSS via CDN para layout, cores, tipografia, responsividade e estados visuais
+- Font Awesome 6 para os ícones pedidos no enunciado
+- Google Fonts: Barlow Condensed e DM Sans
+- JavaScript para menu móvel, player e validação do formulário
+- SVG local, MP3 de demonstração e WAV de reserva
 
-- **HTML5** — estrutura semântica (`header`, `nav`, `main`, `section`, `article`, `figure`, `footer`)
-- **CSS3** — estilos complementares (brilho do hero, cards, efeito do menu e animação do equalizador)
-- **Tailwind CSS** (via CDN) — estilização e layout responsivo
-- **Font Awesome 6** — ícones
-- **Google Fonts** — fonte Poppins
-- **JavaScript** — menu fixo com transparência, menu mobile, player de áudio e validação do formulário
-- **GitHub Pages** — publicação
+## Arquivos
 
-## Estrutura de arquivos
-
-```
-cp5-front-rfeb/
-├── index.html          # Landing page
-├── privacidade.html    # Política de privacidade
-├── css/
-│   └── style.css       # CSS próprio (complementa o Tailwind)
-├── js/
-│   └── script.js       # Interações da página
-├── assets/
-│   ├── img/            # Imagem do app e favicon (SVG)
-│   └── audio/          # Música de demonstração
-└── docs/
-    ├── EXPLICACAO.md          # Explicação do código
-    └── apresentacao-cp5.pptx  # Slides da apresentação
+```text
+index.html                 Página principal
+privacidade.html           Política de Privacidade
+js/script.js               Interações
+assets/img/                Arte do player e favicon
+music/                     Faixa MP3 de demonstração
+assets/audio/demo.wav      Áudio de reserva
+docs/EXPLICACAO.md         Guia do código
 ```
 
-## Como rodar
+## Como abrir
 
-Não precisa instalar nada. Baixe **a pasta inteira** do projeto e abra o `index.html` no navegador (é preciso internet para carregar o Tailwind, o Font Awesome e a fonte).
+Abra a pasta inteira e carregue `index.html` no navegador. O áudio e as imagens usam caminhos relativos. É necessária conexão com a internet para carregar as fontes e o Tailwind CSS.
 
-> Abrir só o `index.html` sozinho (sem as pastas `css/`, `js/` e `assets/` ao lado) deixa a imagem quebrada e desativa os estilos próprios e o JavaScript, porque a página usa caminhos relativos para esses arquivos.
+[Versão publicada no GitHub Pages](https://dudsbtw.github.io/cp5-front-rfeb/)
 
 ## Créditos
 
-- Música de demonstração: melodia simples gerada pelo grupo, baseada em uma cantiga de domínio público (sem direitos autorais).
-- Fotos dos depoimentos: [randomuser.me](https://randomuser.me) (pessoas fictícias).
+- Faixa de demonstração: “Lofi Soul”, Zephira Music (arquivo incluído na pasta `music/`).
+- Áudio de reserva: melodia simples produzida pelo grupo com base em uma cantiga de domínio público.
+- Arte vetorial do player: produzida para este projeto.
+- Fotos dos depoimentos ilustrativos: [Random User Generator](https://randomuser.me/). Os personagens e relatos são fictícios.
 
 ## Integrantes
 
