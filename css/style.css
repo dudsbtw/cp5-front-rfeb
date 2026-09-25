@@ -1,10 +1,5 @@
 /* Estilos que complementam o Tailwind */
 
-/* Rolagem suave ao clicar nos links do menu */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Faz a seção não ficar escondida atrás do menu fixo */
 section {
   scroll-margin-top: 70px;
@@ -20,28 +15,6 @@ section {
 /* Fundo do hero com um brilho roxo */
 .hero-bg {
   background: radial-gradient(circle 400px at 70% 45%, rgba(192, 38, 211, 0.25), transparent);
-}
-
-/* Texto com degradê */
-.texto-gradiente {
-  background: linear-gradient(90deg, #e879f9, #a78bfa);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Círculo dos ícones de benefícios */
-.icone-beneficio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  background-color: rgba(192, 38, 211, 0.15);
-  color: #e879f9;
-  font-size: 1.5rem;
 }
 
 /* Card usado em funcionalidades e depoimentos */

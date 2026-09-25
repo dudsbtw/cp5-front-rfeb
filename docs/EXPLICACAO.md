@@ -90,6 +90,17 @@ Exemplo de classes usadas no botão principal:
 | `transition` | anima as mudanças |
 | `hover:scale-105` | aumenta 5% ao passar o mouse |
 
+Os ícones dos benefícios também são estilizados só com Tailwind, com as mesmas classes nos 4 ícones para manter a consistência:
+
+```html
+<div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center
+            rounded-full bg-fuchsia-600/15 text-2xl text-fuchsia-400">
+  <i class="fa-solid fa-headphones"></i>
+</div>
+```
+
+Outros exemplos: `scroll-smooth` no `<html>` (rolagem suave ao clicar no menu) e `bg-gradient-to-r from-fuchsia-400 to-violet-400 bg-clip-text text-transparent` (texto com degradê no título).
+
 ---
 
 ## 5. Layout responsivo
@@ -113,13 +124,12 @@ Outros exemplos:
 
 ## 6. CSS próprio (`css/style.css`)
 
-Algumas coisas ficaram em CSS puro porque são específicas do projeto:
+Usamos o Tailwind para quase tudo. Ficou em CSS puro só o que o Tailwind não faz de forma simples:
 
-- `scroll-behavior: smooth` → rolagem suave ao clicar no menu.
 - `scroll-margin-top` → a seção não fica escondida atrás do menu fixo.
 - `.menu-rolado` → fundo escuro com `backdrop-filter: blur()` (efeito de vidro), usado pelo JS.
-- `.texto-gradiente` → texto com degradê usando `background-clip: text`.
-- `.card` → estilo dos cards com efeito de subir no `:hover`.
+- `.hero-bg` → brilho roxo atrás do hero (`radial-gradient`).
+- `.card` → estilo dos cards com efeito de subir no `:hover` (fica em uma classe porque é usado em 9 cards).
 - `.equalizador` + `@keyframes pulo` → barrinhas animadas que aparecem enquanto a música toca.
 
 ---
@@ -130,20 +140,24 @@ Algumas coisas ficaram em CSS puro porque são específicas do projeto:
 
 ```js
 function atualizarMenu() {
-  if (window.scrollY > 50) {
-    menu.classList.add('menu-rolado');
-  } else {
-    menu.classList.remove('menu-rolado');
-  }
+  menu.classList.toggle('menu-rolado', window.scrollY > 50);
 }
 window.addEventListener('scroll', atualizarMenu);
 ```
 
-O menu tem `position: fixed` (classe `fixed`). No topo ele é transparente; quando a página rola mais de 50px, o JS adiciona a classe `menu-rolado`, que coloca o fundo escuro com desfoque.
+O menu tem `position: fixed` (classe `fixed`). No topo ele é transparente. O `classList.toggle(classe, condição)` adiciona a classe quando a condição é verdadeira e remove quando é falsa: se a página rolou mais de 50px, entra a classe `menu-rolado`, que coloca o fundo escuro com desfoque.
 
 ### 7.2 Menu mobile
 
-Ao clicar no botão hambúrguer, o JS alterna (`classList.toggle`) as classes `hidden`/`flex` da lista de links e troca o ícone de ☰ para ✕. Ao clicar em um link, o menu fecha.
+```js
+function alternarMenu() {
+  const aberto = !menuMobile.classList.toggle('hidden');
+  ...
+}
+btnMenu.addEventListener('click', alternarMenu);
+```
+
+Uma única função abre e fecha o menu: ela alterna a classe `hidden` da lista de links e troca o ícone de ☰ para ✕. A mesma função é chamada ao clicar em um link, para o menu fechar.
 
 ### 7.3 Botão "Ouvir Agora"
 
@@ -157,7 +171,7 @@ btnOuvir.addEventListener('click', function () {
 });
 ```
 
-Usa a tag `<audio>` do HTML5. Os eventos `play`, `pause` e `ended` do áudio atualizam o botão (ícone play/pause) e mostram ou escondem o equalizador animado.
+Usa a tag `<audio>` do HTML5. Os eventos `play` e `pause` do áudio atualizam o botão (ícone play/pause) e mostram ou escondem o equalizador animado. Quando a música termina, o navegador também dispara `pause`, então o botão volta sozinho para "Ouvir Agora".
 
 ### 7.4 Formulário de contato
 

@@ -28,7 +28,7 @@ O Melodia é voltado para amantes de música, jovens e pessoas que buscam novas 
 ## Tecnologias usadas
 
 - **HTML5** — estrutura semântica (`header`, `nav`, `main`, `section`, `article`, `figure`, `footer`)
-- **CSS3** — estilos complementares (degradê, animação do equalizador, efeito do menu)
+- **CSS3** — estilos complementares (brilho do hero, cards, efeito do menu e animação do equalizador)
 - **Tailwind CSS** (via CDN) — estilização e layout responsivo
 - **Font Awesome 6** — ícones
 - **Google Fonts** — fonte Poppins
@@ -55,7 +55,9 @@ cp5-front-rfeb/
 
 ## Como rodar
 
-Não precisa instalar nada. Basta abrir o arquivo `index.html` no navegador (é preciso internet para carregar o Tailwind, o Font Awesome e a fonte).
+Não precisa instalar nada. Baixe **a pasta inteira** do projeto e abra o `index.html` no navegador (é preciso internet para carregar o Tailwind, o Font Awesome e a fonte).
+
+> Abrir só o `index.html` sozinho (sem as pastas `css/`, `js/` e `assets/` ao lado) deixa a imagem quebrada e desativa os estilos próprios e o JavaScript, porque a página usa caminhos relativos para esses arquivos.
 
 ## Créditos
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +50,7 @@
       </ul>
 
       <a href="#contato" class="hidden rounded-full bg-fuchsia-600 px-5 py-2 text-sm font-semibold transition hover:bg-fuchsia-500 md:inline-block">
-        Baixar app
+        Receber novidades
       </a>
 
       <!-- Botão do menu mobile -->
@@ -60,7 +60,7 @@
     </nav>
 
     <!-- Menu mobile -->
-    <ul id="menu-mobile" class="hidden flex-col gap-4 bg-slate-950 px-6 pb-6 md:hidden">
+    <ul id="menu-mobile" class="hidden space-y-4 bg-slate-950 px-6 pb-6 md:hidden">
       <li><a href="#beneficios" class="block py-1">Benefícios</a></li>
       <li><a href="#funcionalidades" class="block py-1">Funcionalidades</a></li>
       <li><a href="#depoimentos" class="block py-1">Depoimentos</a></li>
@@ -77,7 +77,7 @@
             Novo app de músicas
           </span>
           <h1 class="mb-6 text-4xl font-bold leading-tight md:text-5xl">
-            Melodia: <span class="texto-gradiente">Sua Música, Sua Forma</span>
+            Melodia: <span class="bg-gradient-to-r from-fuchsia-400 to-violet-400 bg-clip-text text-transparent">Sua Música, Sua Forma</span>
           </h1>
           <p class="mb-8 text-lg text-slate-300">
             Ouça suas músicas favoritas com qualidade de estúdio, monte playlists do seu jeito
@@ -95,7 +95,7 @@
           </div>
 
           <!-- Barrinhas de equalizador que animam enquanto a música toca -->
-          <div id="equalizador" class="equalizador mt-6 hidden justify-center md:justify-start" aria-hidden="true">
+          <div id="equalizador" class="equalizador mt-6 flex hidden justify-center md:justify-start" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span>
           </div>
 
@@ -120,7 +120,7 @@
 
         <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div class="text-center">
-            <div class="icone-beneficio">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-fuchsia-600/15 text-2xl text-fuchsia-400">
               <i class="fa-solid fa-headphones"></i>
             </div>
             <h3 class="mb-2 text-lg font-semibold">Som superior</h3>
@@ -128,7 +128,7 @@
           </div>
 
           <div class="text-center">
-            <div class="icone-beneficio">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-fuchsia-600/15 text-2xl text-fuchsia-400">
               <i class="fa-solid fa-list-ul"></i>
             </div>
             <h3 class="mb-2 text-lg font-semibold">Playlists do seu jeito</h3>
@@ -136,7 +136,7 @@
           </div>
 
           <div class="text-center">
-            <div class="icone-beneficio">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-fuchsia-600/15 text-2xl text-fuchsia-400">
               <i class="fa-solid fa-compass"></i>
             </div>
             <h3 class="mb-2 text-lg font-semibold">Novos artistas</h3>
@@ -144,7 +144,7 @@
           </div>
 
           <div class="text-center">
-            <div class="icone-beneficio">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-fuchsia-600/15 text-2xl text-fuchsia-400">
               <i class="fa-solid fa-hand-pointer"></i>
             </div>
             <h3 class="mb-2 text-lg font-semibold">Interface intuitiva</h3>

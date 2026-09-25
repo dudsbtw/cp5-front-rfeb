@@ -4,11 +4,7 @@
 const menu = document.getElementById('menu');
 
 function atualizarMenu() {
-  if (window.scrollY > 50) {
-    menu.classList.add('menu-rolado');
-  } else {
-    menu.classList.remove('menu-rolado');
-  }
+  menu.classList.toggle('menu-rolado', window.scrollY > 50);
 }
 
 window.addEventListener('scroll', atualizarMenu);
@@ -18,27 +14,22 @@ atualizarMenu();
 const btnMenu = document.getElementById('btn-menu');
 const menuMobile = document.getElementById('menu-mobile');
 
-btnMenu.addEventListener('click', function () {
-  menuMobile.classList.toggle('hidden');
-  menuMobile.classList.toggle('flex');
-
-  const aberto = !menuMobile.classList.contains('hidden');
+// A mesma função abre e fecha o menu.
+// classList.toggle devolve true se a classe "hidden" foi adicionada (menu fechado).
+function alternarMenu() {
+  const aberto = !menuMobile.classList.toggle('hidden');
   btnMenu.setAttribute('aria-expanded', aberto);
   btnMenu.innerHTML = aberto ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
 
   // Com o menu aberto o fundo do cabeçalho precisa ficar escuro
   menu.classList.toggle('bg-slate-950', aberto);
-});
+}
 
-// Fecha o menu mobile ao clicar em um link
+btnMenu.addEventListener('click', alternarMenu);
+
+// Fecha o menu ao clicar em um link
 menuMobile.querySelectorAll('a').forEach(function (link) {
-  link.addEventListener('click', function () {
-    menuMobile.classList.add('hidden');
-    menuMobile.classList.remove('flex');
-    btnMenu.setAttribute('aria-expanded', false);
-    btnMenu.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    menu.classList.remove('bg-slate-950');
-  });
+  link.addEventListener('click', alternarMenu);
 });
 
 // ===== Botão "Ouvir Agora" (tocar / pausar a música de demonstração) =====
@@ -49,17 +40,9 @@ const textoOuvir = document.getElementById('texto-ouvir');
 const equalizador = document.getElementById('equalizador');
 
 function mostrarTocando(tocando) {
-  if (tocando) {
-    iconeOuvir.className = 'fa-solid fa-pause';
-    textoOuvir.textContent = 'Pausar';
-    equalizador.classList.remove('hidden');
-    equalizador.classList.add('flex');
-  } else {
-    iconeOuvir.className = 'fa-solid fa-play';
-    textoOuvir.textContent = 'Ouvir Agora';
-    equalizador.classList.add('hidden');
-    equalizador.classList.remove('flex');
-  }
+  iconeOuvir.className = tocando ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+  textoOuvir.textContent = tocando ? 'Pausar' : 'Ouvir Agora';
+  equalizador.classList.toggle('hidden', !tocando);
 }
 
 btnOuvir.addEventListener('click', function () {
@@ -70,9 +53,9 @@ btnOuvir.addEventListener('click', function () {
   }
 });
 
+// Quando a música termina, o navegador também dispara o evento "pause"
 audio.addEventListener('play', function () { mostrarTocando(true); });
 audio.addEventListener('pause', function () { mostrarTocando(false); });
-audio.addEventListener('ended', function () { mostrarTocando(false); });
 
 // ===== Formulário de contato (validação simples) =====
 const form = document.getElementById('form-contato');
